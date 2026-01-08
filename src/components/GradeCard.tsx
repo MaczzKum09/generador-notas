@@ -18,16 +18,11 @@ const GradeCard = ({
   students,
   logoPlaceholder = true 
 }: GradeCardProps) => {
-  const getGradeColor = (grade: number) => {
-    if (grade >= 4) return "text-emerald-600";
-    if (grade >= 2) return "text-amber-600";
-    return "text-red-500";
-  };
-
-  const getGradeBg = (grade: number) => {
-    if (grade >= 4) return "bg-emerald-50";
-    if (grade >= 2) return "bg-amber-50";
-    return "bg-red-50";
+  const getGradeInfo = (grade: number) => {
+    if (grade >= 17) return { letter: "AD", label: "Excelente", color: "text-emerald-600", bg: "bg-emerald-50" };
+    if (grade >= 13) return { letter: "A", label: "Bueno", color: "text-blue-600", bg: "bg-blue-50" };
+    if (grade >= 9) return { letter: "B", label: "Regular", color: "text-amber-600", bg: "bg-amber-50" };
+    return { letter: "C", label: "Bajo", color: "text-red-500", bg: "bg-red-50" };
   };
 
   return (
@@ -113,8 +108,8 @@ const GradeCard = ({
                   </span>
                 </div>
                 <div className="px-5 py-4 border-l border-border flex items-center justify-center min-w-[120px]">
-                  <span className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-sm font-semibold ${getGradeBg(student.grade)} ${getGradeColor(student.grade)}`}>
-                    C = {student.grade}
+                  <span className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-sm font-semibold ${getGradeInfo(student.grade).bg} ${getGradeInfo(student.grade).color}`}>
+                    {getGradeInfo(student.grade).letter} = {student.grade}
                   </span>
                 </div>
               </motion.div>
@@ -132,18 +127,22 @@ const GradeCard = ({
           <p className="text-sm text-muted-foreground">
             Total de estudiantes: <span className="font-semibold text-foreground">{students.length}</span>
           </p>
-          <div className="flex items-center gap-4 text-xs text-muted-foreground">
+          <div className="flex items-center gap-3 text-xs text-muted-foreground flex-wrap">
             <span className="flex items-center gap-1.5">
               <span className="w-2 h-2 rounded-full bg-emerald-500" />
-              Excelente (4-5)
+              AD Excelente (17-20)
+            </span>
+            <span className="flex items-center gap-1.5">
+              <span className="w-2 h-2 rounded-full bg-blue-500" />
+              A Bueno (13-16)
             </span>
             <span className="flex items-center gap-1.5">
               <span className="w-2 h-2 rounded-full bg-amber-500" />
-              Regular (2-3)
+              B Regular (9-12)
             </span>
             <span className="flex items-center gap-1.5">
               <span className="w-2 h-2 rounded-full bg-red-500" />
-              Bajo (0-1)
+              C Bajo (0-8)
             </span>
           </div>
         </motion.div>
