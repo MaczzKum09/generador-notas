@@ -1,11 +1,12 @@
 import GradeCard from "@/components/GradeCard";
 
 const students = [
-  { name: "Danae De Vettori Calle", grade: 4 },
-  { name: "Danna Camila Saavedra Balladares", grade: 0 },
-  { name: "Liana Mercedes Thais Chavez Vazquez", grade: 2 },
-  { name: "Kristhel Mileth Davis Mendoza", grade: 4 },
-  { name: "Fergie Farias Ynfante", grade: 0 },
+  { name: "Ivanna Lucero Carrero Zapata", grade: 12 },
+  { name: "Danae Cristtel De Vettori Calle", grade: 12 },
+  { name: "Fergie Farias Ynfante", grade: 10 },
+  { name: "Danae Sanjinez Fuentes", grade: 0 },
+  { name: "Danna Camila Saavedra Balladares", grade: 1 },
+  { name: "Kristhel Mileth Davis Mendoza", grade: 9 },
 ];
 
 const Index = () => {
