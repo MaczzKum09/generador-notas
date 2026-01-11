@@ -1,12 +1,8 @@
 import GradeCard from "@/components/GradeCard";
 
 const students = [
-  { name: "Ivanna Lucero Carrero Zapata", grade: 12 },
-  { name: "Danae Cristtel De Vettori Calle", grade: 12 },
-  { name: "Fergie Farias Ynfante", grade: 10 },
-  { name: "Danae Sanjinez Fuentes", grade: 0 },
-  { name: "Danna Camila Saavedra Balladares", grade: 1 },
-  { name: "Kristhel Mileth Davis Mendoza", grade: 9 },
+  { name: "Gadiel Polo Dios", grade: 9 },
+  { name: "Luciana Fairolet Bernal Cornejo", grade: 0 },
 ];
 
 const Index = () => {
@@ -19,7 +15,7 @@ const Index = () => {
       
       <GradeCard 
         title="Práctica de Matemáticas"
-        subtitle="Semilleros 2 - Primera Evaluación"
+        subtitle="1ero y 2do de Secundaria - Primera Evaluación"
         students={students}
       />
     </div>
