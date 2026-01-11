@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 
 interface Student {
   name: string;
-  grade: number;
+  grade: number | null;
 }
 
 interface GradeCardProps {
@@ -18,7 +18,8 @@ const GradeCard = ({
   students,
   logoPlaceholder = true 
 }: GradeCardProps) => {
-  const getGradeInfo = (grade: number) => {
+  const getGradeInfo = (grade: number | null) => {
+    if (grade === null) return { letter: "NP", label: "No se presentó", color: "text-gray-500", bg: "bg-gray-100" };
     if (grade >= 17) return { letter: "AD", label: "Excelente", color: "text-emerald-600", bg: "bg-emerald-50" };
     if (grade >= 13) return { letter: "A", label: "Bueno", color: "text-blue-600", bg: "bg-blue-50" };
     if (grade >= 9) return { letter: "B", label: "Regular", color: "text-amber-600", bg: "bg-amber-50" };
@@ -109,7 +110,7 @@ const GradeCard = ({
                 </div>
                 <div className="px-5 py-4 border-l border-border flex items-center justify-center min-w-[120px]">
                   <span className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-sm font-semibold ${getGradeInfo(student.grade).bg} ${getGradeInfo(student.grade).color}`}>
-                    {getGradeInfo(student.grade).letter} = {student.grade}
+                    {student.grade === null ? "No se presentó" : `${getGradeInfo(student.grade).letter} = ${student.grade}`}
                   </span>
                 </div>
               </motion.div>
