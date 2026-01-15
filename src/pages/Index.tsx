@@ -58,8 +58,17 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 py-8 px-4">
-      <div className="max-w-4xl mx-auto space-y-8">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 py-8 px-4 flex flex-col">
+      <div className="max-w-4xl mx-auto space-y-8 flex-1">
+        {/* Developer credit - Top */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          className="text-center text-xs text-muted-foreground"
+        >
+          Desarrollado por el <span className="font-semibold">Ing. de Sistemas e Informática Max Alessandro Garcia Lopez</span>
+        </motion.div>
+
         {/* Header */}
         <motion.div 
           initial={{ opacity: 0, y: -20 }}
@@ -142,6 +151,16 @@ const Index = () => {
           </motion.div>
         )}
       </div>
+
+      {/* Developer credit - Bottom */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.5 }}
+        className="text-center text-xs text-muted-foreground mt-8 py-4 border-t border-border/50"
+      >
+        © 2025 - Desarrollado por el <span className="font-semibold">Ing. de Sistemas e Informática Max Alessandro Garcia Lopez</span>
+      </motion.div>
     </div>
   );
 };
