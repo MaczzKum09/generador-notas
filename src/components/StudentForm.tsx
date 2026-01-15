@@ -1,9 +1,9 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Plus, Trash2, UserPlus } from "lucide-react";
+import { Plus, Trash2, UserPlus, Upload, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
 interface Student {
@@ -16,14 +16,43 @@ interface StudentFormProps {
   onStudentsChange: (students: { name: string; grade: number | null }[]) => void;
   onTitleChange: (title: string) => void;
   onSubtitleChange: (subtitle: string) => void;
+  onLogoChange: (logo: string | null) => void;
   title: string;
   subtitle: string;
+  logo: string | null;
 }
 
-const StudentForm = ({ onStudentsChange, onTitleChange, onSubtitleChange, title, subtitle }: StudentFormProps) => {
+const StudentForm = ({ 
+  onStudentsChange, 
+  onTitleChange, 
+  onSubtitleChange, 
+  onLogoChange,
+  title, 
+  subtitle,
+  logo 
+}: StudentFormProps) => {
   const [students, setStudents] = useState<Student[]>([]);
   const [newName, setNewName] = useState("");
   const [newGrade, setNewGrade] = useState<string>("");
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const handleLogoUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        onLogoChange(reader.result as string);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const removeLogo = () => {
+    onLogoChange(null);
+    if (fileInputRef.current) {
+      fileInputRef.current.value = "";
+    }
+  };
 
   const addStudent = () => {
     if (!newName.trim()) return;
@@ -69,12 +98,63 @@ const StudentForm = ({ onStudentsChange, onTitleChange, onSubtitleChange, title,
     <motion.div 
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      className="bg-card border border-border rounded-xl p-6 max-w-2xl w-full shadow-lg"
+      className="bg-card border border-border rounded-xl p-6 max-w-2xl w-full shadow-lg mx-auto"
     >
       <h2 className="text-xl font-bold text-foreground mb-6 flex items-center gap-2">
         <UserPlus className="w-5 h-5 text-primary" />
         Configurar Evaluación
       </h2>
+
+      {/* Logo upload */}
+      <div className="mb-6">
+        <Label className="text-sm font-medium text-foreground mb-3 block">
+          Logo de la Institución
+        </Label>
+        <div className="flex items-center gap-4">
+          {logo ? (
+            <div className="relative">
+              <img 
+                src={logo} 
+                alt="Logo" 
+                className="w-20 h-20 object-contain rounded-lg border border-border bg-white"
+              />
+              <button
+                onClick={removeLogo}
+                className="absolute -top-2 -right-2 bg-destructive text-destructive-foreground rounded-full p-1 hover:bg-destructive/90 transition-colors"
+              >
+                <X className="w-3 h-3" />
+              </button>
+            </div>
+          ) : (
+            <div 
+              onClick={() => fileInputRef.current?.click()}
+              className="w-20 h-20 rounded-lg border-2 border-dashed border-border flex items-center justify-center cursor-pointer hover:border-primary hover:bg-muted/50 transition-colors"
+            >
+              <Upload className="w-6 h-6 text-muted-foreground" />
+            </div>
+          )}
+          <div className="flex-1">
+            <input
+              ref={fileInputRef}
+              type="file"
+              accept="image/*"
+              onChange={handleLogoUpload}
+              className="hidden"
+            />
+            <Button 
+              variant="outline" 
+              onClick={() => fileInputRef.current?.click()}
+              className="gap-2"
+            >
+              <Upload className="w-4 h-4" />
+              {logo ? "Cambiar logo" : "Subir logo"}
+            </Button>
+            <p className="text-xs text-muted-foreground mt-1">
+              PNG, JPG o SVG. Máximo 2MB.
+            </p>
+          </div>
+        </div>
+      </div>
 
       {/* Title and Subtitle inputs */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">

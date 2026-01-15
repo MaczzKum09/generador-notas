@@ -17,6 +17,7 @@ const Index = () => {
   const [students, setStudents] = useState<Student[]>([]);
   const [title, setTitle] = useState("Práctica de Matemáticas");
   const [subtitle, setSubtitle] = useState("Evaluación Semanal");
+  const [logo, setLogo] = useState<string | null>(null);
   const cardRef = useRef<HTMLDivElement>(null);
 
   const exportToPDF = async () => {
@@ -78,8 +79,10 @@ const Index = () => {
           onStudentsChange={setStudents}
           onTitleChange={setTitle}
           onSubtitleChange={setSubtitle}
+          onLogoChange={setLogo}
           title={title}
           subtitle={subtitle}
+          logo={logo}
         />
 
         {/* Export button */}
@@ -120,6 +123,7 @@ const Index = () => {
                   title={title}
                   subtitle={subtitle}
                   students={students}
+                  logo={logo}
                 />
               </div>
             </div>
