@@ -9,14 +9,14 @@ interface GradeCardProps {
   title?: string;
   subtitle?: string;
   students: Student[];
-  logoPlaceholder?: boolean;
+  logo?: string | null;
 }
 
 const GradeCard = ({ 
   title = "Práctica de Matemáticas", 
   subtitle = "Semilleros 2 - Primera Evaluación",
   students,
-  logoPlaceholder = true 
+  logo = null 
 }: GradeCardProps) => {
   const getGradeInfo = (grade: number | null) => {
     if (grade === null) return { letter: "NP", label: "No se presentó", color: "text-gray-500", bg: "bg-gray-100" };
@@ -39,19 +39,25 @@ const GradeCard = ({
         <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-[hsl(45,70%,50%)] to-transparent opacity-60" />
         
         <div className="flex items-start gap-6">
-          {/* Logo placeholder */}
-          {logoPlaceholder && (
-            <motion.div 
-              initial={{ scale: 0.9, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              transition={{ delay: 0.2, duration: 0.4 }}
-              className="w-20 h-20 rounded-lg bg-white/10 border-2 border-[hsl(45,70%,50%)]/40 flex items-center justify-center flex-shrink-0 backdrop-blur-sm"
-            >
+          {/* Logo */}
+          <motion.div 
+            initial={{ scale: 0.9, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            transition={{ delay: 0.2, duration: 0.4 }}
+            className="w-20 h-20 rounded-lg bg-white/10 border-2 border-[hsl(45,70%,50%)]/40 flex items-center justify-center flex-shrink-0 backdrop-blur-sm overflow-hidden"
+          >
+            {logo ? (
+              <img 
+                src={logo} 
+                alt="Logo institucional" 
+                className="w-full h-full object-contain p-1"
+              />
+            ) : (
               <span className="text-[hsl(45,70%,50%)]/60 text-xs text-center font-medium">
                 Tu Logo
               </span>
-            </motion.div>
-          )}
+            )}
+          </motion.div>
           
           {/* Title section */}
           <div className="flex-1">
